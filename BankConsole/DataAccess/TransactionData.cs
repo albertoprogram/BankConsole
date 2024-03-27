@@ -12,14 +12,21 @@ namespace BankConsole.DataAccess
 {
     internal class TransactionData
     {
-        IConfiguration configuration;
-        string connectionString;
+        #region Variables
+        private readonly string? connectionString;
+        #endregion
 
+        #region Constructors
         public TransactionData()
         {
-            connectionString = configuration.GetConnectionString("SQLServer");
+            if (Program.Configuration != null)
+            {
+                connectionString = Program.Configuration.GetConnectionString("SQLServer");
+            }
         }
+        #endregion
 
+        #region SaveTransaction
         internal void SaveTransaction(Transaction transaction)
         {
             using (SqlConnection conexionDB = new SqlConnection(connectionString))
@@ -48,5 +55,6 @@ namespace BankConsole.DataAccess
                 }
             }
         }
+        #endregion
     }
 }

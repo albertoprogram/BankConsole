@@ -6,7 +6,7 @@ namespace BankConsole
     internal class Program
     {
         #region Variables
-        public static IConfiguration Configuration;
+        public static IConfiguration? Configuration;
         #endregion
 
         #region Main

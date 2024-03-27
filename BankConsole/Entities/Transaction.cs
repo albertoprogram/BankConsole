@@ -10,8 +10,8 @@ namespace BankConsole.Entities
     {
         #region Properties
         public Guid Id { get; set; }
-        public string CustomerId { get; set; }
-        public string TXNId { get; set; }
+        public string? CustomerId { get; set; }
+        public string? TXNId { get; set; }
         public decimal Amount { get; set; }
         public DateTime TXNDate { get; set; }
         #endregion
