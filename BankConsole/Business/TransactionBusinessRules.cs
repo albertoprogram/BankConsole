@@ -15,7 +15,7 @@ namespace BankConsole.Business
         internal void TransactionValidations
         (
             string? customerId,
-            string? txnId,
+            string? txnTypeId,
             string? amount
         )
         {
@@ -26,9 +26,9 @@ namespace BankConsole.Business
                 transaction.CustomerId = customerId;
             }
 
-            if (!string.IsNullOrWhiteSpace(txnId))
+            if (!string.IsNullOrWhiteSpace(txnTypeId))
             {
-                transaction.TXNId = txnId;
+                transaction.TXNTypeId = txnTypeId;
             }
 
             if (!string.IsNullOrWhiteSpace(amount))

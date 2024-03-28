@@ -11,9 +11,9 @@ namespace BankConsole.Entities
         #region Properties
         public Guid Id { get; set; }
         public string? CustomerId { get; set; }
-        public string? TXNId { get; set; }
+        public string? TXNTypeId { get; set; }
         public decimal Amount { get; set; }
-        public DateTime TXNDate { get; set; }
+        public DateTime DateAndTime { get; set; }
         #endregion
     }
 }

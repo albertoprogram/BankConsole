@@ -12,7 +12,7 @@ namespace BankConsole.Presentation
     {
         #region Variables
         string? customerId;
-        string? txnId;
+        string? txnTypeId;
         string? amount;
         #endregion
 
@@ -27,7 +27,7 @@ namespace BankConsole.Presentation
 
             Console.WriteLine("Enter the type of transaction");
 
-            txnId = Console.ReadLine();
+            txnTypeId = Console.ReadLine();
 
             Console.WriteLine("Enter the transaction amount");
 
@@ -36,7 +36,7 @@ namespace BankConsole.Presentation
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
             transactionBusinessRules.TransactionValidations
-                (customerId, txnId, amount);
+                (customerId, txnTypeId, amount);
         }
         #endregion
     }
