@@ -33,22 +33,19 @@ namespace BankConsole.DataAccess
             {
                 using (SqlCommand comandoSql = new SqlCommand())
                 {
-                    //comandoSql.CommandType = CommandType.StoredProcedure;
-                    //comandoSql.CommandText = "Ins_Recibo";
-                    //comandoSql.Connection = conexionDB;
+                    comandoSql.CommandType = CommandType.StoredProcedure;
+                    comandoSql.CommandText = "InsertTransaction";
+                    comandoSql.Connection = conexionDB;
 
-                    //comandoSql.Parameters.AddWithValue("@RecibidoDe", txtRecibiDe.Text.Trim());
-                    //comandoSql.Parameters.AddWithValue("@Monto", monto);
-                    //comandoSql.Parameters.AddWithValue("@MontoLetras", txtCantidadLetras.Text.Trim());
-                    //comandoSql.Parameters.AddWithValue("@Concepto", txtConcepto.Text.Trim());
-                    //comandoSql.Parameters.AddWithValue("@Ciudad", cmbCiudad.Text.Trim());
-                    //comandoSql.Parameters.AddWithValue("@Fecha", dtpFecha.Value);
+                    comandoSql.Parameters.AddWithValue("@CustomerId", transaction.CustomerId);
+                    comandoSql.Parameters.AddWithValue("@TXNTypeId", transaction.TXNTypeId);
+                    comandoSql.Parameters.AddWithValue("@Amount", transaction.Amount);
                     //comandoSql.Parameters.Add("@IdRecibo", SqlDbType.Int);
                     //comandoSql.Parameters["@IdRecibo"].Direction = ParameterDirection.Output;
 
-                    //conexionDB.Open();
+                    conexionDB.Open();
 
-                    //comandoSql.ExecuteNonQuery();
+                    comandoSql.ExecuteNonQuery();
 
                     //idRecibo = Convert.ToInt32(comandoSql.Parameters["@IdRecibo"].Value);
 
