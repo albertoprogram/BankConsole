@@ -16,7 +16,8 @@ namespace BankConsole.Business
         (
             string? customerId,
             string? txnTypeId,
-            string? amount
+            string? amount,
+            out string message
         )
         {
             Transaction transaction = new Transaction();
@@ -38,7 +39,7 @@ namespace BankConsole.Business
 
             TransactionData transactionData = new TransactionData();
 
-            transactionData.SaveTransaction(transaction);
+            transactionData.SaveTransaction(transaction,out message);
         }
         #endregion
     }

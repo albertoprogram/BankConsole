@@ -27,7 +27,7 @@ namespace BankConsole.DataAccess
         #endregion
 
         #region SaveTransaction
-        internal void SaveTransaction(Transaction transaction)
+        internal void SaveTransaction(Transaction transaction, out string message)
         {
             using (SqlConnection conexionDB = new SqlConnection(connectionString))
             {
@@ -46,6 +46,8 @@ namespace BankConsole.DataAccess
                     conexionDB.Open();
 
                     comandoSql.ExecuteNonQuery();
+
+                    message = "Ok";
 
                     //idRecibo = Convert.ToInt32(comandoSql.Parameters["@IdRecibo"].Value);
 

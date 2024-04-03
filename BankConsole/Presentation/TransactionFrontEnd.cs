@@ -14,6 +14,7 @@ namespace BankConsole.Presentation
         string? customerId;
         string? txnTypeId;
         string? amount;
+        string? message;
         #endregion
 
         #region RequestTransactionData
@@ -33,10 +34,18 @@ namespace BankConsole.Presentation
 
             amount = Console.ReadLine();
 
+            message = string.Empty;
+
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
             transactionBusinessRules.TransactionValidations
-                (customerId, txnTypeId, amount);
+                (customerId, txnTypeId, amount, out message);
+
+            if (message == "Ok")
+            {
+                Console.WriteLine("The transaction has been registered successfully");
+                Console.ReadKey();
+            }
         }
         #endregion
     }
