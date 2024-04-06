@@ -3,6 +3,7 @@ using BankConsole.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,15 +37,24 @@ namespace BankConsole.Presentation
 
             message = string.Empty;
 
+            string logFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Bank.log";
+            ErrorManager errorManager = new ErrorManager(logFilePath);
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
-            transactionBusinessRules.TransactionValidations
+            try
+            {
+                transactionBusinessRules.TransactionValidations
                 (customerId, txnTypeId, amount, out message);
 
-            if (message == "Ok")
+                if (message == "Ok")
+                {
+                    Console.WriteLine("The transaction has been registered successfully");
+                    Console.ReadKey();
+                }
+            }
+            catch (Exception exception)
             {
-                Console.WriteLine("The transaction has been registered successfully");
-                Console.ReadKey();
+                errorManager.HandleError(exception);
             }
         }
         #endregion
