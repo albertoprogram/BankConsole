@@ -63,45 +63,10 @@ namespace BankConsole.Presentation
             finally
             {
                 Console.WriteLine("\n");
-                Menu();
-            }
-        }
-        #endregion
 
-        #region Menu
-        internal void Menu()
-        {
-        Start:
-            Console.WriteLine("-------Bank-------");
-            Console.WriteLine("Select an option:");
-            Console.WriteLine("1 Enter a Transaction");
-            Console.WriteLine("0 Exit");
+                Menu menu = new Menu();
 
-            ErrorManager errorManager = new ErrorManager(logFilePath);
-
-            try
-            {
-                string selectedOption = Console.ReadLine().Substring(0, 1);
-
-                switch (selectedOption)
-                {
-                    case "1":
-                        RequestTransactionData();
-                        break;
-                    case "0":
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid option\n");
-                        goto Start;
-                }
-            }
-            catch (Exception exception)
-            {
-                errorManager.HandleError(exception);
-                Console.ReadKey();
-                Console.WriteLine("\n");
-                goto Start;
+                menu.MenuPresentation();
             }
         }
         #endregion

@@ -17,9 +17,9 @@ namespace BankConsole
 
             Configuration = builder.Build();
 
-            TransactionFrontEnd transactionFrontEnd = new TransactionFrontEnd();
+            Menu menu = new Menu();
 
-            transactionFrontEnd.Menu();
+            menu.MenuPresentation();
         }
         #endregion
     }
