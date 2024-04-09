@@ -13,9 +13,9 @@ namespace BankConsole
         #endregion
 
         #region Constructors
-        public ErrorManager(string logFilePath)
+        public ErrorManager()
         {
-            this.logFilePath = logFilePath;
+            logFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Bank.log";
         }
         #endregion
 

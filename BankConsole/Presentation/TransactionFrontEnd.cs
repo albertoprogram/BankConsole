@@ -16,8 +16,6 @@ namespace BankConsole.Presentation
         string? txnTypeId;
         string? amount;
         string? message;
-
-        string logFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Bank.log";
         #endregion
 
         #region RequestTransactionData
@@ -39,7 +37,7 @@ namespace BankConsole.Presentation
 
             message = string.Empty;
 
-            ErrorManager errorManager = new ErrorManager(logFilePath);
+            ErrorManager errorManager = new ErrorManager();
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
             try

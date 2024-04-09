@@ -8,10 +8,6 @@ namespace BankConsole.Presentation
 {
     internal class Menu
     {
-        #region Variables
-        string logFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Bank.log";
-        #endregion
-
         #region MenuPresentation
         internal void MenuPresentation()
         {
@@ -21,7 +17,7 @@ namespace BankConsole.Presentation
             Console.WriteLine("1 Enter a Transaction");
             Console.WriteLine("0 Exit");
 
-            ErrorManager errorManager = new ErrorManager(logFilePath);
+            ErrorManager errorManager = new ErrorManager();
 
             try
             {
