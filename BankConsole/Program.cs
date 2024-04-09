@@ -19,7 +19,7 @@ namespace BankConsole
 
             TransactionFrontEnd transactionFrontEnd = new TransactionFrontEnd();
 
-            transactionFrontEnd.RequestTransactionData();
+            transactionFrontEnd.Menu();
         }
         #endregion
     }

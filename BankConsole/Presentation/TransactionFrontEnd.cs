@@ -16,12 +16,14 @@ namespace BankConsole.Presentation
         string? txnTypeId;
         string? amount;
         string? message;
+
+        string logFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Bank.log";
         #endregion
 
         #region RequestTransactionData
         internal void RequestTransactionData()
         {
-            Console.WriteLine("Transactions");
+            Console.WriteLine("\nEnter a Transaction");
 
             Console.WriteLine("Enter customer Id");
 
@@ -37,7 +39,6 @@ namespace BankConsole.Presentation
 
             message = string.Empty;
 
-            string logFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Bank.log";
             ErrorManager errorManager = new ErrorManager(logFilePath);
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
@@ -48,13 +49,59 @@ namespace BankConsole.Presentation
 
                 if (message == "Ok")
                 {
+                    Console.WriteLine("------------------------------------------------");
                     Console.WriteLine("The transaction has been registered successfully");
+                    Console.WriteLine("------------------------------------------------");
                     Console.ReadKey();
                 }
             }
             catch (Exception exception)
             {
                 errorManager.HandleError(exception);
+                Console.ReadKey();
+            }
+            finally
+            {
+                Console.WriteLine("\n");
+                Menu();
+            }
+        }
+        #endregion
+
+        #region Menu
+        internal void Menu()
+        {
+        Start:
+            Console.WriteLine("-------Bank-------");
+            Console.WriteLine("Select an option:");
+            Console.WriteLine("1 Enter a Transaction");
+            Console.WriteLine("0 Exit");
+
+            ErrorManager errorManager = new ErrorManager(logFilePath);
+
+            try
+            {
+                string selectedOption = Console.ReadLine().Substring(0, 1);
+
+                switch (selectedOption)
+                {
+                    case "1":
+                        RequestTransactionData();
+                        break;
+                    case "0":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option\n");
+                        goto Start;
+                }
+            }
+            catch (Exception exception)
+            {
+                errorManager.HandleError(exception);
+                Console.ReadKey();
+                Console.WriteLine("\n");
+                goto Start;
             }
         }
         #endregion
