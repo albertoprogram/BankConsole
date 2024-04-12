@@ -39,8 +39,13 @@ namespace BankConsole.Business
 
             TransactionData transactionData = new TransactionData();
 
-            transactionData.SaveTransaction(transaction,out message);
+            transactionData.SaveTransaction(transaction, out message);
         }
         #endregion
+
+        internal void TransactionRequestValidations()
+        {
+
+        }
     }
 }

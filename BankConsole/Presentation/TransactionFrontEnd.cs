@@ -68,5 +68,10 @@ namespace BankConsole.Presentation
             }
         }
         #endregion
+
+        internal void RequestTransactions()
+        {
+
+        }
     }
 }

@@ -55,5 +55,10 @@ namespace BankConsole.DataAccess
             }
         }
         #endregion
+
+        internal void GetTransactions()
+        {
+
+        }
     }
 }

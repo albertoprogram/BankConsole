@@ -15,6 +15,7 @@ namespace BankConsole.Presentation
             Console.WriteLine("-------Bank-------");
             Console.WriteLine("Select an option:");
             Console.WriteLine("1 Enter a Transaction");
+            Console.WriteLine("2 View Transactions");
             Console.WriteLine("0 Exit");
 
             ErrorManager errorManager = new ErrorManager();
@@ -28,6 +29,8 @@ namespace BankConsole.Presentation
                     case "1":
                         TransactionFrontEnd transactionFrontEnd = new TransactionFrontEnd();
                         transactionFrontEnd.RequestTransactionData();
+                        break;
+                    case "2":
                         break;
                     case "0":
                         Environment.Exit(0);
