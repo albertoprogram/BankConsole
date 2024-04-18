@@ -45,7 +45,9 @@ namespace BankConsole.Business
 
         internal void TransactionRequestValidations()
         {
+            TransactionData transactionData = new TransactionData();
 
+            transactionData.GetTransactions();
         }
     }
 }

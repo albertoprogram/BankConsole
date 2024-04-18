@@ -71,7 +71,9 @@ namespace BankConsole.Presentation
 
         internal void RequestTransactions()
         {
+            TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
+            transactionBusinessRules.TransactionRequestValidations();
         }
     }
 }

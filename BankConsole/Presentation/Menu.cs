@@ -22,15 +22,17 @@ namespace BankConsole.Presentation
 
             try
             {
+                TransactionFrontEnd transactionFrontEnd = new TransactionFrontEnd();
+
                 string selectedOption = Console.ReadLine().Substring(0, 1);
 
                 switch (selectedOption)
                 {
                     case "1":
-                        TransactionFrontEnd transactionFrontEnd = new TransactionFrontEnd();
                         transactionFrontEnd.RequestTransactionData();
                         break;
                     case "2":
+                        transactionFrontEnd.RequestTransactions();
                         break;
                     case "0":
                         Environment.Exit(0);
