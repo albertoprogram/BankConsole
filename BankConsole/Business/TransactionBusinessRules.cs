@@ -43,11 +43,23 @@ namespace BankConsole.Business
         }
         #endregion
 
-        internal void TransactionRequestValidations()
+        internal void TransactionRequestValidationsByPeriod(string? startDate, string? endDate, out string message)
         {
+            DateTime startDateDateTime = default(DateTime), endDateDateTime = default(DateTime);
+
+            if (!string.IsNullOrWhiteSpace(startDate))
+            {
+                startDateDateTime = DateTime.Parse(startDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(endDate))
+            {
+                endDateDateTime = DateTime.Parse(endDate);
+            }
+
             TransactionData transactionData = new TransactionData();
 
-            transactionData.GetTransactions();
+            transactionData.GetTransactionsByPeriod(startDateDateTime, endDateDateTime, out message);
         }
     }
 }

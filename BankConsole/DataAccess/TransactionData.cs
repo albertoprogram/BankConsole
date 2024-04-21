@@ -56,7 +56,7 @@ namespace BankConsole.DataAccess
         }
         #endregion
 
-        internal void GetTransactions()
+        internal void GetTransactionsByPeriod(DateTime startDate, DateTime endDate, out string message)
         {
 
         }

@@ -69,11 +69,50 @@ namespace BankConsole.Presentation
         }
         #endregion
 
+        #region RequestTransactions
         internal void RequestTransactions()
         {
+        Start:
+            Console.WriteLine("\nView Transactions");
+
+            Console.WriteLine("Select an option:");
+
+            Console.WriteLine("1 By Period");
+            Console.WriteLine("0 Main Menu");
+
+            string? selectedOption = Console.ReadLine().Substring(0, 1);
+
+            switch (selectedOption)
+            {
+                case "1":
+                    RequestTransactionsByPeriod();
+                    break;
+                case "0":
+                    Menu menu = new Menu();
+                    menu.MenuPresentation();
+                    break;
+                default:
+                    Console.WriteLine("Invalid option\n");
+                    goto Start;
+            }
+        }
+        #endregion
+
+        private void RequestTransactionsByPeriod()
+        {
+            Console.WriteLine("Enter start date");
+
+            string? startDate = Console.ReadLine();
+
+            Console.WriteLine("Enter the end date");
+
+            string? endDate = Console.ReadLine();
+
+            message = string.Empty;
+
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
-            transactionBusinessRules.TransactionRequestValidations();
+            transactionBusinessRules.TransactionRequestValidationsByPeriod(startDate, endDate);
         }
     }
 }
