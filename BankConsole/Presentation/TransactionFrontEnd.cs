@@ -2,6 +2,7 @@
 using BankConsole.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -98,6 +99,7 @@ namespace BankConsole.Presentation
         }
         #endregion
 
+        #region RequestTransactionsByPeriod
         private void RequestTransactionsByPeriod()
         {
             Console.WriteLine("Enter start date");
@@ -109,10 +111,46 @@ namespace BankConsole.Presentation
             string? endDate = Console.ReadLine();
 
             message = string.Empty;
+            DataTable dataTable = new DataTable();
 
+            ErrorManager errorManager = new ErrorManager();
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
-            transactionBusinessRules.TransactionRequestValidationsByPeriod(startDate, endDate);
+            try
+            {
+                dataTable = transactionBusinessRules.TransactionRequestValidationsByPeriod(startDate, endDate, out message);
+
+                if (message == "Ok")
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        Console.WriteLine
+                            (
+                            row["Id"].ToString() + "|" +
+                            row["CustomerId"].ToString() + "|" +
+                            row["TXNTypeId"].ToString() + "|" +
+                            row["Amount"].ToString() + "|" +
+                            row["DateAndTime"].ToString() + "|"
+                            );
+                    }
+
+                    Console.ReadKey();
+                }
+            }
+            catch (Exception exception)
+            {
+                errorManager.HandleError(exception);
+                Console.ReadKey();
+            }
+            finally
+            {
+                Console.WriteLine("\n");
+
+                Menu menu = new Menu();
+
+                menu.MenuPresentation();
+            }
         }
+        #endregion
     }
 }

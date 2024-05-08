@@ -29,36 +29,58 @@ namespace BankConsole.DataAccess
         #region SaveTransaction
         internal void SaveTransaction(Transaction transaction, out string message)
         {
-            using (SqlConnection conexionDB = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand comandoSql = new SqlCommand())
+                using (SqlCommand command = new SqlCommand())
                 {
-                    comandoSql.CommandType = CommandType.StoredProcedure;
-                    comandoSql.CommandText = "InsertTransaction";
-                    comandoSql.Connection = conexionDB;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "InsertTransaction";
+                    command.Connection = connection;
 
-                    comandoSql.Parameters.AddWithValue("@CustomerId", transaction.CustomerId);
-                    comandoSql.Parameters.AddWithValue("@TXNTypeId", transaction.TXNTypeId);
-                    comandoSql.Parameters.AddWithValue("@Amount", transaction.Amount);
-                    //comandoSql.Parameters.Add("@IdRecibo", SqlDbType.Int);
-                    //comandoSql.Parameters["@IdRecibo"].Direction = ParameterDirection.Output;
+                    command.Parameters.AddWithValue("@CustomerId", transaction.CustomerId);
+                    command.Parameters.AddWithValue("@TXNTypeId", transaction.TXNTypeId);
+                    command.Parameters.AddWithValue("@Amount", transaction.Amount);
+                    //command.Parameters.Add("@IdRecibo", SqlDbType.Int);
+                    //command.Parameters["@IdRecibo"].Direction = ParameterDirection.Output;
 
-                    conexionDB.Open();
+                    connection.Open();
 
-                    comandoSql.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
 
                     message = "Ok";
 
-                    //idRecibo = Convert.ToInt32(comandoSql.Parameters["@IdRecibo"].Value);
+                    //idRecibo = Convert.ToInt32(command.Parameters["@IdRecibo"].Value);
 
                 }
             }
         }
         #endregion
 
-        internal void GetTransactionsByPeriod(DateTime startDate, DateTime endDate, out string message)
+        #region GetTransactionsByPeriod
+        internal DataTable GetTransactionsByPeriod(string startDate, string endDate, out string message)
         {
+            DataTable dataTable = new DataTable();
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("GetTransactionsByPeriod", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@startDate", startDate);
+                    command.Parameters.AddWithValue("@endDate", endDate);
+
+                    connection.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                    adapter.Fill(dataTable);
+
+                    message = "Ok";
+                }
+            }
+
+            return dataTable;
         }
+        #endregion
     }
 }

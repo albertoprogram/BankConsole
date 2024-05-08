@@ -2,6 +2,7 @@
 using BankConsole.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -43,23 +44,28 @@ namespace BankConsole.Business
         }
         #endregion
 
-        internal void TransactionRequestValidationsByPeriod(string? startDate, string? endDate, out string message)
+        #region TransactionRequestValidationsByPeriod
+        internal DataTable TransactionRequestValidationsByPeriod(string? startDate, string? endDate, out string message)
         {
-            DateTime startDateDateTime = default(DateTime), endDateDateTime = default(DateTime);
+            string startDateAndTime = "0001-01-01T00:00:00", endDateAndTime = "0001-01-01T00:00:00";
+            DataTable dataTable = new DataTable();
 
             if (!string.IsNullOrWhiteSpace(startDate))
             {
-                startDateDateTime = DateTime.Parse(startDate);
+                startDateAndTime = startDate + "T00:00:00";
             }
 
             if (!string.IsNullOrWhiteSpace(endDate))
             {
-                endDateDateTime = DateTime.Parse(endDate);
+                endDateAndTime = endDate + "T23:59:59";
             }
 
             TransactionData transactionData = new TransactionData();
 
-            transactionData.GetTransactionsByPeriod(startDateDateTime, endDateDateTime, out message);
+            dataTable = transactionData.GetTransactionsByPeriod(startDateAndTime, endDateAndTime, out message);
+
+            return dataTable;
         }
+        #endregion
     }
 }
