@@ -49,15 +49,35 @@ namespace BankConsole.Business
         {
             string startDateAndTime = "0001-01-01T00:00:00", endDateAndTime = "0001-01-01T00:00:00";
             DataTable dataTable = new DataTable();
+            bool isValidDate;
+            string dateFormat = "yyyy-MM-dd";
 
             if (!string.IsNullOrWhiteSpace(startDate))
             {
-                startDateAndTime = startDate + "T00:00:00";
+                isValidDate = false;
+                if (isValidDate = IsValidDateFormat(startDate, dateFormat))
+                {
+                    startDateAndTime = startDate + "T00:00:00";
+                }
+                else
+                {
+                    message = "Invalid date format";
+                    return dataTable;
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(endDate))
             {
-                endDateAndTime = endDate + "T23:59:59";
+                isValidDate = false;
+                if (isValidDate = IsValidDateFormat(endDate, dateFormat))
+                {
+                    endDateAndTime = endDate + "T23:59:59";
+                }
+                else
+                {
+                    message = "Invalid date format";
+                    return dataTable;
+                }
             }
 
             TransactionData transactionData = new TransactionData();
@@ -65,6 +85,14 @@ namespace BankConsole.Business
             dataTable = transactionData.GetTransactionsByPeriod(startDateAndTime, endDateAndTime, out message);
 
             return dataTable;
+        }
+        #endregion
+
+        #region IsValidDateFormat
+        public bool IsValidDateFormat(string dateString, string format)
+        {
+            DateTime date;
+            return DateTime.TryParseExact(dateString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
         }
         #endregion
     }
