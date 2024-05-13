@@ -54,8 +54,8 @@ namespace BankConsole.Business
 
             if (!string.IsNullOrWhiteSpace(startDate))
             {
-                isValidDate = false;
-                if (isValidDate = IsValidDateFormat(startDate, dateFormat))
+                isValidDate = IsValidDateFormat(startDate, dateFormat);
+                if (isValidDate)
                 {
                     startDateAndTime = startDate + "T00:00:00";
                 }
@@ -68,8 +68,8 @@ namespace BankConsole.Business
 
             if (!string.IsNullOrWhiteSpace(endDate))
             {
-                isValidDate = false;
-                if (isValidDate = IsValidDateFormat(endDate, dateFormat))
+                isValidDate = IsValidDateFormat(endDate, dateFormat);
+                if (isValidDate)
                 {
                     endDateAndTime = endDate + "T23:59:59";
                 }

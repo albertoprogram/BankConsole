@@ -3,6 +3,7 @@ using BankConsole.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -129,11 +130,16 @@ namespace BankConsole.Presentation
                             row["Id"].ToString() + "|" +
                             row["CustomerId"].ToString() + "|" +
                             row["TXNTypeId"].ToString() + "|" +
-                            row["Amount"].ToString() + "|" +
+                            string.Format(CultureInfo.InvariantCulture,"{0:f2}", row["Amount"]) + "|" +
                             row["DateAndTime"].ToString() + "|"
                             );
                     }
 
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine(message);
                     Console.ReadKey();
                 }
             }
