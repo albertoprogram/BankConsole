@@ -131,7 +131,7 @@ namespace BankConsole.Presentation
                             row["CustomerId"].ToString() + "|" +
                             row["TXNTypeId"].ToString() + "|" +
                             string.Format(CultureInfo.InvariantCulture,"{0:f2}", row["Amount"]) + "|" +
-                            row["DateAndTime"].ToString() + "|"
+                            Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss") + "|"
                             );
                     }
 
