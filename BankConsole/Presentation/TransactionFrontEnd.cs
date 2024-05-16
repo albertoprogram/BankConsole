@@ -123,16 +123,29 @@ namespace BankConsole.Presentation
 
                 if (message == "Ok")
                 {
+                    foreach (DataColumn column in dataTable.Columns)
+                    {
+                        Console.Write($"{column.ColumnName,-45}");
+                    }
+
+                    Console.WriteLine();
+
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        Console.WriteLine
-                            (
-                            row["Id"].ToString() + "|" +
-                            row["CustomerId"].ToString() + "|" +
-                            row["TXNTypeId"].ToString() + "|" +
-                            string.Format(CultureInfo.InvariantCulture,"{0:f2}", row["Amount"]) + "|" +
-                            Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss") + "|"
-                            );
+                        //Console.WriteLine
+                        //    (
+                        //    row["Id"].ToString() + "|" +
+                        //    row["CustomerId"].ToString() + "|" +
+                        //    row["TXNTypeId"].ToString() + "|" +
+                        //    string.Format(CultureInfo.InvariantCulture, "{0:f2}", row["Amount"]) + "|" +
+                        //    Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss") + "|"
+                        //    );
+
+                        foreach (var item in row.ItemArray)
+                        {
+                            Console.Write($"{item,-45}");
+                        }
+                        Console.WriteLine();
                     }
 
                     Console.ReadKey();
