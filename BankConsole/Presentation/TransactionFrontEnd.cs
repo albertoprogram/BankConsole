@@ -125,26 +125,43 @@ namespace BankConsole.Presentation
                 {
                     foreach (DataColumn column in dataTable.Columns)
                     {
-                        Console.Write($"{column.ColumnName,-45}");
+                        switch (column.ColumnName)
+                        {
+                            case "Id":
+                                Console.Write($"{column.ColumnName,-40}");
+                                break;
+                            default:
+                                Console.Write($"{column.ColumnName,-20}");
+                                break;
+                        }
                     }
 
                     Console.WriteLine();
 
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        //Console.WriteLine
-                        //    (
-                        //    row["Id"].ToString() + "|" +
-                        //    row["CustomerId"].ToString() + "|" +
-                        //    row["TXNTypeId"].ToString() + "|" +
-                        //    string.Format(CultureInfo.InvariantCulture, "{0:f2}", row["Amount"]) + "|" +
-                        //    Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss") + "|"
-                        //    );
 
-                        foreach (var item in row.ItemArray)
+                        for (int columnIndex = 0; columnIndex < dataTable.Columns.Count; columnIndex++)
                         {
-                            Console.Write($"{item,-45}");
+                            var columnName = dataTable.Columns[columnIndex].ColumnName;
+
+                            switch (columnName)
+                            {
+                                case "Id":
+                                    Console.Write($"{row[columnIndex],-40}");
+                                    break;
+                                case "Amount":
+                                    Console.Write($"{string.Format(CultureInfo.InvariantCulture, "{0:f2}", row["Amount"]),-20}");
+                                    break;
+                                case "DateAndTime":
+                                    Console.Write($"{Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss"),-20}");
+                                    break;
+                                default:
+                                    Console.Write($"{row[columnIndex],-20}");
+                                    break;
+                            }
                         }
+
                         Console.WriteLine();
                     }
 
