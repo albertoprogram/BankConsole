@@ -13,6 +13,7 @@ namespace BankConsole
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             Configuration = builder.Build();
