@@ -45,7 +45,7 @@ namespace BankConsole.Business
         #endregion
 
         #region TransactionRequestValidationsByPeriod
-        internal DataTable TransactionRequestValidationsByPeriod(string? startDate, string? endDate, out string message)
+        internal DataTable TransactionRequestValidationsByPeriod(string? startDate, string? endDate, int page, out string message)
         {
             string startDateAndTime = "0001-01-01T00:00:00", endDateAndTime = "0001-01-01T00:00:00";
             DataTable dataTable = new DataTable();
@@ -82,7 +82,7 @@ namespace BankConsole.Business
 
             TransactionData transactionData = new TransactionData();
 
-            dataTable = transactionData.GetTransactionsByPeriod(startDateAndTime, endDateAndTime, out message);
+            dataTable = transactionData.GetTransactionsByPeriod(startDateAndTime, endDateAndTime, page, out message);
 
             return dataTable;
         }

@@ -113,56 +113,80 @@ namespace BankConsole.Presentation
 
             message = string.Empty;
             DataTable dataTable = new DataTable();
+            int page;
+
+            page = 1;
 
             ErrorManager errorManager = new ErrorManager();
             TransactionBusinessRules transactionBusinessRules = new TransactionBusinessRules();
 
             try
             {
-                dataTable = transactionBusinessRules.TransactionRequestValidationsByPeriod(startDate, endDate, out message);
+            Search:
+                dataTable = transactionBusinessRules.TransactionRequestValidationsByPeriod(startDate, endDate, page, out message);
 
                 if (message == "Ok")
                 {
-                    foreach (DataColumn column in dataTable.Columns)
+                    if (dataTable.Rows.Count > 0)
                     {
-                        switch (column.ColumnName)
+                        foreach (DataColumn column in dataTable.Columns)
                         {
-                            case "Id":
-                                Console.Write($"{column.ColumnName,-40}");
-                                break;
-                            default:
-                                Console.Write($"{column.ColumnName,-20}");
-                                break;
-                        }
-                    }
-
-                    Console.WriteLine();
-
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-
-                        for (int columnIndex = 0; columnIndex < dataTable.Columns.Count; columnIndex++)
-                        {
-                            var columnName = dataTable.Columns[columnIndex].ColumnName;
-
-                            switch (columnName)
+                            switch (column.ColumnName)
                             {
                                 case "Id":
-                                    Console.Write($"{row[columnIndex],-40}");
-                                    break;
-                                case "Amount":
-                                    Console.Write($"{string.Format(CultureInfo.InvariantCulture, "{0:f2}", row["Amount"]),-20}");
-                                    break;
-                                case "DateAndTime":
-                                    Console.Write($"{Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss"),-20}");
+                                    Console.Write($"{column.ColumnName,-40}");
                                     break;
                                 default:
-                                    Console.Write($"{row[columnIndex],-20}");
+                                    Console.Write($"{column.ColumnName,-20}");
                                     break;
                             }
                         }
 
                         Console.WriteLine();
+
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+
+                            for (int columnIndex = 0; columnIndex < dataTable.Columns.Count; columnIndex++)
+                            {
+                                var columnName = dataTable.Columns[columnIndex].ColumnName;
+
+                                switch (columnName)
+                                {
+                                    case "Id":
+                                        Console.Write($"{row[columnIndex],-40}");
+                                        break;
+                                    case "Amount":
+                                        Console.Write($"{string.Format(CultureInfo.InvariantCulture, "{0:f2}", row["Amount"]),-20}");
+                                        break;
+                                    case "DateAndTime":
+                                        Console.Write($"{Convert.ToDateTime(row["DateAndTime"]).ToString("yyyy-MM-dd HH:mm:ss"),-20}");
+                                        break;
+                                    default:
+                                        Console.Write($"{row[columnIndex],-20}");
+                                        break;
+                                }
+                            }
+
+                            Console.WriteLine("");
+                        }
+
+                        Console.WriteLine("Press the right arrow key to go to the next data page or any key to exit.");
+
+                        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                        ConsoleKey key = keyInfo.Key;
+
+                        if (key == ConsoleKey.RightArrow)
+                        {
+                            page++;
+                            goto Search;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no data or the end of the data has been reached.");
+                        Console.WriteLine("Press any key to exit.");
                     }
 
                     Console.ReadKey();

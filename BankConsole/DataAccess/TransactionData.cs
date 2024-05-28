@@ -57,7 +57,7 @@ namespace BankConsole.DataAccess
         #endregion
 
         #region GetTransactionsByPeriod
-        internal DataTable GetTransactionsByPeriod(string startDate, string endDate, out string message)
+        internal DataTable GetTransactionsByPeriod(string startDate, string endDate, int page, out string message)
         {
             DataTable dataTable = new DataTable();
 
@@ -68,6 +68,7 @@ namespace BankConsole.DataAccess
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@startDate", startDate);
                     command.Parameters.AddWithValue("@endDate", endDate);
+                    command.Parameters.AddWithValue("@page", page);
 
                     connection.Open();
 
