@@ -171,7 +171,7 @@ namespace BankConsole.Presentation
                             Console.WriteLine("");
                         }
 
-                        Console.WriteLine("Press the right arrow key to go to the next data page or any key to exit.");
+                        Console.WriteLine("Press the arrow keys on your keyboard to move between data pages or any other key to exit.");
 
                         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
@@ -181,6 +181,14 @@ namespace BankConsole.Presentation
                         {
                             page++;
                             goto Search;
+                        }
+                        else if (key == ConsoleKey.LeftArrow)
+                        {
+                            if (page >= 2)
+                            {
+                                page--;
+                                goto Search;
+                            }
                         }
                     }
                     else
